@@ -1,2 +1,0 @@
-科立尔洁净 首页需要添加一个新闻版块，调用10篇，日期显示格式为2015-6-24
-www.cleanac.cn/admin.php	jbrcms	admin	qxu1152660286.my3w.com qxu1152660286 jbrcompany
