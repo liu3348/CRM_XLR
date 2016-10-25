@@ -1,0 +1,97 @@
+<include file="Public:header" />
+<div class="container" >
+    <!--<input type="button" id="show">-->
+    <div class="row" style="margin-left: 50px">
+        <table class="table" >
+            <tr>
+                <td class="tdleft">搜索字段</td>
+                <td colspan="3"><input type="text" id="world" name="world"></td>
+            </tr>
+            <tr>
+                <td class="tdleft">URL地址</td>
+                <td colspan="3"><input type="text" id="url" name="url"></td>
+            </tr>
+            <tr>
+                <td class="tdleft">&nbsp;</td>
+                <td colspan="3">
+                    <input class="btn btn-primary" type="BUTTON" id="choose_seo"  value="查询"/> &nbsp;
+                </td>
+            </tr>
+            <div class="pull-right">
+                <div class="btn-group">
+                    <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><i class="icon-wrench"></i>  &nbsp;导入搜索<span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        <!--<li><a href="javascript:return(0);" id="import_excel"  class="link">导入日程</a></li>-->
+                        <li><a id="import_excel" class="link" href="javascript:void(0);"><i class="icon-upload"></i> 导入搜索</a></li>
+                    </ul>
+                </div>
+            </div>
+        </table>
+
+    </div>
+    <div>
+        排名:<span id="paixu" name="paixu"></span>
+    </div>
+    <br>
+    <table class="table" id="seo_arrs">
+            <tr style="font-size: 16px;color: red">
+                <td>id</td>
+                <td>字段名</td>
+                <td>url地址</td>
+                <td>排名</td>
+                <td>搜索时间</td>
+            </tr>
+            <volist name="seo_search" id="vo">
+                <tr>
+                    <td>{$vo.search_id}</td>
+                    <td>{$vo.name}</td>
+                    <td>{$vo.url}</td>
+                    <td><?php if($vo['ranking']==0){echo "未上排行";}else{echo $vo['ranking'];}php?></td>
+                    <td>{$vo.search_time}</td>
+                </tr>
+                </volist>
+    </table>
+</div>
+<div class="hide" id="dialog-import" title="{:L('IMPORT_DATA')}">loading...</div>
+<script>
+    <if condition="C('ismobile') eq 1">width=$('.container').width() * 0.9;<else/>width=800;</if>
+    $("#dialog-import").dialog({
+        autoOpen: false,
+        modal: true,
+        width: width,
+        maxHeight: 400,
+        position: ["center",100]
+    });
+    $("#import_excel").click(function(){
+        $('#dialog-import').dialog('open');
+        $("#ui-id-4").text('导入数据');
+        $('#dialog-import').load('{:U("seo/excelimport")}');
+    });
+    $("#choose_seo").click(function(){
+        var world = $('#world').val();
+        var url = $('#url').val();
+        //百度seo查询   url  字段名字
+        $.post('', { url: url,world:world }, function (text, status)
+        {
+            $("#seo_arrs").html('');
+            var dataObj=eval("("+text+")");
+            var str = "<tr> <th>字段名</th> <th>url</th> <th>url1</th> <th>操作</th> </tr>";
+            $("#seo_arrs").append(str);
+            for(var i=0;i<dataObj['arr'].length;i++){
+            var str = "<tr><td>"+dataObj['arr'][i].title+"</td><td>"+dataObj['arr'][i].url+"</td> <td>"+dataObj['arr'][i].url1+"</td> <td><a>查看</a></td> </tr>"
+            $("#seo_arrs").append(str);
+            }
+            $('#paixu').text(dataObj.paixu);
+           console.debug(dataObj);
+        });
+    })
+</script>
+<script>
+    $("#show").click(function(){
+        $.get('http://tongtool.myddns.com:8003/process/resume/package/admin/getOrder?callback=?', {'q':'{"token":"702ee512b3364a0fb1fb395d8b72ac29","data":{"limit":"20","nextToken":null,"since":"2011-11-11 14:49","shippingMethodCode":null}}'}, function (json) {
+            console.debug(json);
+        }, 'jsonp');
+    })
+</script>
+<include file="Public:footer" />
+
