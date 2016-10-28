@@ -135,13 +135,13 @@
 								<option value="is_not_empty"><?php echo L('ISNOTEMPTY');?></option>
 							</select>&nbsp;&nbsp;
 						</li>
-						<li id="searchContent" class="pull-left">1111
+						<li id="searchContent" class="pull-left">
 							<input id="search" type="text" class="input-medium search-query" name="search"/>&nbsp;&nbsp;
 						</li>
-						<li class="pull-left"> 33333
-							<input type="hidden" name="m" value="customer"/>2222
-							<?php if($_GET['by']!= null): ?><input type="hidden" name="by" value="<?php echo ($_GET['by']); ?>"/><?php endif; ?>44444
-							<button type="button" id="dosearch" class="btn"> <img src="__PUBLIC__/img/search.png"/>  <?php echo L('SEARCH');?></button>55555
+						<li class="pull-left"> 
+							<input type="hidden" name="m" value="customer"/>
+							<?php if($_GET['by']!= null): ?><input type="hidden" name="by" value="<?php echo ($_GET['by']); ?>"/><?php endif; ?>
+							<button type="button" id="dosearch" class="btn"> <img src="__PUBLIC__/img/search.png"/>  <?php echo L('SEARCH');?></button>
 							&nbsp;
 						</li>
 						<li class="pull-left">

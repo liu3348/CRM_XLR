@@ -14,7 +14,7 @@
 	</div>
 	<include file="Public:alert" />
 	<if condition="$_GET['content'] != 'resource'">
-	<p class="view">1111111111111111111
+	<p class="view">
 		<b>{:L('UNIFIED_CUSTOMER_VIEW')}</b>
 		<img src=" __PUBLIC__/img/by_owner.png"/> <a href="{:U('customer/index')}" <if condition="$Think.get.by eq null">class="active"</if>>{:L('ALL')}</a> |
 		<a href="{:U('customer/index','by=me')}" <if condition="$Think.get.by eq 'me'">class="active"</if>>{:L('MY_CLIENTS')}</a> | 
@@ -199,7 +199,7 @@
 						<input type="hidden" name="m" value="customer"/>
 						<input type="hidden" name="a" value="search"/>
 						<if condition="$Think.get.by neq null"><input type="hidden" name="by" value="{$Think.get.by}"/></if>
-						
+						<button type="button" id="dosearch" class="btn"> <img src="__PUBLIC__/img/search.png"/>  {:L('SEARCH')}</button>
 						&nbsp;
 						</li>
 					
