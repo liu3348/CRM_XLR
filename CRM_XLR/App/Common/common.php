@@ -324,7 +324,6 @@ function getSubRoleByRole($role_id,$self = true){
 	return $below_ids;
 }
 
-
 //原获取职位列表方法
 function getSubRole($role_id, $role_list, $separate) {
 	$d_role = D('RoleView');
@@ -334,24 +333,24 @@ function getSubRole($role_id, $role_list, $separate) {
 		$position_id  = 0;
 	}
 	$objRole = M('Role');
-//	辅助角色id  yb
+        //辅助角色id  yb
 	$assist_id = $objRole->where('role_id = %d', $role_id)->select();
 	$assist_id = $assist_id[0]['assist_id'];
-//辅助角色权限添加 yb
+        //辅助角色权限添加 yb
 	$sub_position = getPositionSub($position_id ,true);
-	$assist_position = getPositionSub($assist_id ,true);
+	$assist_position = getPositionSub($assist_id ,FALSE);//第二参数 true 改为false 
 	foreach($assist_position as $k=>$v){
 		$sub_position[]=$v;
 	}
-//	var_dump($sub_position);die();
+        //var_dump($sub_position);die();
 	foreach($sub_position AS $position_id) {
 		$son_role = $d_role->where('role.position_id = %d', $position_id['position_id'])->select();
 		foreach($son_role as $val){
 			$array[] = array('role_id' => $val['role_id'],'user_id' => $val['user_id'], 'parent_id' => $val['parent_id'], 'name' => $separate . $val['department_name'] . ' | ' . $val['role_name']);
 		}
 	}
-	echo "<pre>";
-	print_r($sub_position);die();
+        //	echo "<pre>";
+        //	print_r($sub_position);die();
 	return $array;
 }
 //原获取下级职位列表方法

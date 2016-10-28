@@ -1,0 +1,54 @@
+<form class="form-horizontal" action="{:U('User/seo_add')}" method="post">
+    <table class="table">
+        <!--<input type='hidden' name="r" <present name="r">value="{$r}"</present>/>-->
+        <!--<input type='hidden' name="module" <present name="r">value="{$module}"</present>/>-->
+        <input type='hidden' id="customer_id" name="customer_id" value="{$_GET['id']}"/>
+        <!--<input type='hidden' name="role_id" value="{$Think.session.role_id}"/>-->
+        <tr>
+            <td class="tdleft">关键词</td>
+            <td colspan="3"><input class="span3" type="text" id="world" name="world" /></td>
+        </tr>
+        <tr>
+            <td class="tdleft">url地址</td>
+            <td colspan="3"><input class="span3" type="text" id="url" name="url"  /></td>
+        </tr>
+        <tr>
+            <td class="tdleft">签约天数</td>
+            <td colspan="3"><input class="span3" type="text" id="contract_days" name="contract_days"  /></td>
+        </tr>
+        <tr>
+            <td class="tdleft">单价</td>
+            <td colspan="3"><input class="span3" type="text" id="univalent_days" name="univalent_days"  /></td>
+        </tr>
+        <tr>
+            <td class="tdleft">赠送天数</td>
+            <td colspan="3"><input class="span3" type="text" id="largess_days" name="largess_days"  /></td>
+        </tr>
+        <tr>
+            <td class="tdleft">开启状态</td>
+            <td colspan="3"><select id="status" name="status">
+                <option value="1">
+                    开启
+                </option>
+                <option value="0">
+                    关闭
+                </option>
+            </select></td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td colspan="3">
+                <input class="btn btn-primary" id="put" type="submit"  value="{:L('ADD')}"/>&nbsp;
+                <input class="btn" onclick="javascript:$('#dialog-log').dialog('close');" type="button" value="{:L('CANCEL')}"/>
+            </td>
+        </tr>
+    </table>
+</form>
+<script type="test/javascript">
+$("#put").click(function(){
+	if($("#world").val() == null || $("#contract_days").val() == "" || $("#url").val() == "" || $("#univalent_days").val() == ""){
+		alert('内容不完整');
+		return false;
+	}
+})
+</script>

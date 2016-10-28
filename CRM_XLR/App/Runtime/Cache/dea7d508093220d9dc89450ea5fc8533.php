@@ -72,122 +72,108 @@
 <script type="text/javascript" src="__PUBLIC__/js/formValidatorRegex.js" charset="UTF-8"></script>
 <link rel="stylesheet" href="__PUBLIC__/css/kindeditor.css" type="text/css" />
 
-
-
-<!--change start-->
-
 <div class="container">
-    <div class="page-header">
-        <h4><?php echo L('ADD_THE_CUSTOMER');?></h4>
-    </div>
-    <div class="row">
-        <div class="span12">
-            <?php if(is_array($alert)): foreach($alert as $k=>$v): if(is_array($v)): foreach($v as $kk=>$vv): ?><div class="alert alert-<?php echo ($k); ?>">
+	<!-- Docs nav ================================================== -->
+	<div class="page-header">
+		<h4><?php echo L('ADD_THE_CUSTOMER');?></h4>
+	</div>
+	<div class="row">
+		<div class="span12">
+			<?php if(is_array($alert)): foreach($alert as $k=>$v): if(is_array($v)): foreach($v as $kk=>$vv): ?><div class="alert alert-<?php echo ($k); ?>">
 			<button type="button" class="close" data-dismiss="alert">&times;</button>
 			<?php echo ($vv); ?>
 		</div><?php endforeach; endif; endforeach; endif; ?>
-            <form id="form1" action="<?php echo U(customer/add);?>" method="post">
-                <input type="hidden" name="refer_url" value="<?php echo ($refer_url); ?>">
-                <div class="form12-item-12 clearfix">
-                    <div class="form12-item" style="font-weight: bold;padding: 5px;">
-                        <?php echo L('KEY_MESSAGE');?>
-                    </div>
-                </div>
-                <div class="form12-item-main">
-                    <div class="form12-item-12 clearfix ">
-                        <div class="form12-item-6">
-                            <label style="display: inline-block"><?php echo L('PRINCIPAL');?>:</label>
-                            <input type="hidden" id="owner_id" name="owner_role_id" value="<?php echo (session('role_id')); ?>"/>
-                            <input type="text" id="owner_name" value="<?php echo (session('name')); ?>" /> &nbsp;&nbsp;
-                            <input class="btn btn-mini" id="remove"  type="button" value="<?php echo L(IN_THE_CUSTOMER_POOL);?>"/>
-                        </div>
+			<form id="form1" action="<?php echo U(customer/add);?>" method="post">
+			     <input type="hidden" name="refer_url" value="<?php echo ($refer_url); ?>">
+                <table class="table" width="95%" border="0" cellspacing="1" cellpadding="0">
+					<tbody>
+						<tr><th colspan="4"><?php echo L('KEY_MESSAGE');?></th></tr>
+                        <tr>
+                            <td class="tdleft" width="15%"><?php echo L('PRINCIPAL');?>:</td>
+                            <td>
+                                <input type="hidden" id="owner_id" name="owner_role_id" value="<?php echo (session('role_id')); ?>"/>
+                                <input type="text" id="owner_name" value="<?php echo (session('name')); ?>" /> &nbsp;&nbsp;
+                                <input class="btn btn-mini" id="remove"  type="button" value="<?php echo L(IN_THE_CUSTOMER_POOL);?>"/>
+                            </td>
                         <?php $j=0; ?>
-                        <?php if(is_array($field_list['main'])): $i = 0; $__LIST__ = $field_list['main'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i; if($vo['in_add']){ $j++; ?>
-                            <?php if($vo['form_type'] == 'textarea' or $vo['form_type'] == 'editor' or $vo['form_type'] == 'address'): if($i%2 != 0): ?><div class="form12-item-6">&nbsp;</div>
-                    </div><?php endif; ?>
-                    <div class="form12-item-12 clearfix ">
-                        <label ><?php echo ($vo["name"]); ?>:</label><?php echo ($vo["html"]); ?>
-                    </div>
-                    <?php if($i%2 == 0 && count($field_list['main']) != $j): $i++; endif; ?>
-                    <?php else: ?>
-                    <?php if($i%2 == 0): ?><div class="form12-item-12 clearfix"><?php endif; ?>
-                    <div class="form12-item-6 ">
-                        <label><?php echo ($vo["name"]); ?>:</label>
-                        <?php echo ($vo["html"]); ?>
-                    </div>
-                    <?php if($i%2 != 0): ?></div><?php endif; ?>
-                <?php if($i%2 == 0 && count($field_list['main']) == $j): ?><div class="form12-item-6">&nbsp;</div>
-        </div><?php endif; endif; ?>
-        <?php } endforeach; endif; else: echo "" ;endif; ?>
-                </div>
-
-                <!--info-->
-                <div class="form12-item-12 clearfix">
-                    <div class="form12-item" style="font-weight: bold;padding: 5px;">
-                        <?php echo L('THE_PRIMARY_CONTACT_INFORMATION');?>
-                    </div>
-                </div>
-                <div class="form12-item-12 clearfix form12-item-info">
-                    <div class="form12-item-6">
-                        <label><?php echo L('NAME');?>:</label>
-                        <input class="user_input" type="text" name="con_name" value="<?php echo ($leads['contacts_name']); ?>">
-                    </div>
-                    <div class="form12-item-6">
-                        <label><?php echo L('NAMED');?>:</label>
-                        <input class="user_input" type="text" name="saltname" value="<?php echo ($leads['saltname']); ?>">
-                    </div>
-                    <div class="form12-item-6">
-                        <label><?php echo L('MAILBOX');?>:</label>
-                        <input class="user_input" name="con_email" type="text"  value="<?php echo ($leads['email']); ?>"/>
-                    </div>
-                    <div class="form12-item-6">
-                        <label><?php echo L('POSITION');?>:</label>
-                        <input class="user_input"  value="<?php echo ($leads['position']); ?>" type="text" name="con_post"/>
-                    </div>
-                    <div class="form12-item-6">
-                        <label>QQ:</label>
-                        <input class="user_input" name="con_qq" data-type="nummber"  type="text" value="<?php echo ($leads['qqnumber']); ?>" />
-                    </div>
-                    <div class="form12-item-6">
-                        <label><?php echo L('CELLPHONE');?>:</label>
-                        <input class="user_input" name="con_telephone" data-type="nummber"  value="<?php echo ($leads['mobile']); ?>" type="text" />
-                    </div>
-                    <div class="form12-item-12">
-                        <label><?php echo L('REMARK');?>:</label>
-                        <textarea class="span8" rows="3" name="con_description" ></textarea>
-                    </div>
-                </div>
-                <!--addinfo-->
-                <div class="form12-item-12 clearfix">
-                    <div class="form12-item" style="font-weight: bold;padding: 5px;">
-                        <?php echo L('KEY_MESSAGE');?>
-                    </div>
-                </div>
-                <div class="form12-item-12 clearfix form12-item-data">
-                <?php if(is_array($field_list['data'])): $i = 0; $__LIST__ = $field_list['data'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><div class="form12-item-12 ">
-                        <label><?php echo ($vo["name"]); ?>:</label>
-                        <?php echo ($vo["html"]); ?>
-                    </div><?php endforeach; endif; else: echo "" ;endif; ?>
-                    </div>
-                <div class="form12-item-12 clearfix form12-item-button" >
-                    <input class="btn btn-primary" name="submit" type="submit" value="<?php echo L('SAVE');?>"/>&nbsp;&nbsp;
-                    <input class="btn btn-primary" name="submit" type="submit" value="<?php echo L('SAVE_AND_NEW');?>"/>&nbsp;&nbsp;
-                    <input class="btn" type="button" onclick="javascript:history.go(-1)" value="<?php echo L('RETURN');?>"/>&nbsp;
-                    <input type="checkbox" name="create_business1" value="1"/><?php echo L('AT_THE_SAME_TIME_CREATING_BUSINESS_OPPORTUNITIES');?>
-                </div>
+						<?php if(is_array($field_list['main'])): $i = 0; $__LIST__ = $field_list['main'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i; if($vo['in_add']) { $j++; ?>
+                        <?php if($vo['form_type'] == 'textarea' or $vo['form_type'] == 'editor' or $vo['form_type'] == 'address'): if($i%2 != 0): ?><td colspan="2">&nbsp;</td>
+                            </tr><?php endif; ?>
+                            <tr>
+                                <td class="tdleft" width="15%"><?php echo ($vo["name"]); ?>:</td>
+                                <td colspan="3"><?php echo ($vo["html"]); ?></td>
+                            </tr>
+                            <?php if($i%2 == 0 && count($field_list['main']) != $j): $i++; endif; ?>
+                        <?php else: ?>
+                            <?php if($i%2 == 0): ?><tr><?php endif; ?>
+                                <td class="tdleft" width="15%"><?php echo ($vo["name"]); ?>:</td>
+                                <td width="35%"><?php echo ($vo["html"]); ?></td>
+                            <?php if($i%2 != 0): ?></tr><?php endif; ?>
+                            <?php if($i%2 == 0 && count($field_list['main']) == $j): ?><td colspan="2">&nbsp;</td>
+                                </tr><?php endif; endif; ?>
+						<?php } endforeach; endif; else: echo "" ;endif; ?>
+						<tr>
+							<th colspan="4"><?php echo L('THE_PRIMARY_CONTACT_INFORMATION');?></th>
+                        </tr>
+                        <tr>
+                            <td class="tdleft" ><?php echo L('NAME');?></td>
+                            <td><input class="user_input" type="text" name="con_name" value="<?php echo ($leads['contacts_name']); ?>"></td>
+                            <td class="tdleft" ><?php echo L('NAMED');?></td>
+                            <td><input class="user_input" type="text" name="saltname" value="<?php echo ($leads['saltname']); ?>"></td>
+                        </tr>
+                        <tr>
+                            <td class="tdleft" ><?php echo L('MAILBOX');?></td>
+                            <td><input class="user_input" name="con_email" type="text"  value="<?php echo ($leads['email']); ?>"/></td>
+                            <td class="tdleft" ><?php echo L('POSITION');?></td>
+                            <td>
+                                <input class="user_input"  value="<?php echo ($leads['position']); ?>" type="text" name="con_post"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tdleft">QQ</td>
+                            <td><input class="user_input" name="con_qq" data-type="nummber"  type="text" value="<?php echo ($leads['qqnumber']); ?>" /></td>
+                            <td class="tdleft" ><?php echo L('CELLPHONE');?></td>
+                            <td><input class="user_input" name="con_telephone" data-type="nummber"  value="<?php echo ($leads['mobile']); ?>" type="text" /></td>
+                        </tr>
+						<tr>
+                            <td class="tdleft" ><?php echo L('REMARK');?></td>
+                            <td colspan="3"><textarea class="span8" rows="3" name="con_description" ></textarea></td>
+                        </tr>
+						<tr><th  colspan="4"><?php echo L('OVERHEAD_INFORMATION');?></th></tr>
+						<?php $j=0; ?>
+						<?php if(is_array($field_list['data'])): $i = 0; $__LIST__ = $field_list['data'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i; if($vo['in_add']){ $j++; ?>
+                        <?php if($vo['form_type'] == 'textarea' or $vo['form_type'] == 'editor' or $vo['form_type'] == 'address'): if($i%2 == 0): ?><td colspan="2">&nbsp;</td>
+                            </tr><?php endif; ?>
+                            <tr>
+                                <td class="tdleft" width="15%"><?php echo ($vo["name"]); ?>:</td>
+                                <td colspan="3"><?php echo ($vo["html"]); ?></td>
+                            </tr>
+                            <?php if($i%2 != 0 && count($field_list['data']) != $j): $i++; endif; ?>
+                        <?php else: ?>
+                            <?php if($i%2 != 0): ?><tr><?php endif; ?>
+                                <td class="tdleft" width="15%"><?php echo ($vo["name"]); ?>:</td>
+                                <td width="35%"><?php echo ($vo["html"]); ?></td>
+                            <?php if($i%2 == 0): ?></tr><?php endif; ?>
+                            <?php if($i%2 != 0 && count($field_list['data']) == $j): ?><td colspan="2">&nbsp;</td>
+                                </tr><?php endif; endif; ?>
+						<?php } endforeach; endif; else: echo "" ;endif; ?>
+					</tbody>
+					<tfoot>
+						<tr>
+							<td style="text-align:center;" colspan="4">
+                                <input class="btn btn-primary" name="submit" type="submit" value="<?php echo L('SAVE');?>"/>&nbsp;&nbsp;
+                                <input class="btn btn-primary" name="submit" type="submit" value="<?php echo L('SAVE_AND_NEW');?>"/>&nbsp;&nbsp;
+                                <input class="btn" type="button" onclick="javascript:history.go(-1)" value="<?php echo L('RETURN');?>"/>&nbsp;
+                                <input type="checkbox" name="create_business1" value="1"/><?php echo L('AT_THE_SAME_TIME_CREATING_BUSINESS_OPPORTUNITIES');?>
+							</td>
+						</tr>
+					</tfoot>
+                </table>
                 <?php if($leads['leads_id']): ?><input type="hidden" name="leads_id" value="<?php echo ($leads['leads_id']); ?>"/><?php endif; ?>
-            </form>
-        </div>
-    </div>
+			</form>
+		</div>
+	</div>
 </div>
-
-
-
-
-<!--change end-->
-
-
-
 <div id="dialog-role-list" class="hide" title="<?php echo L('SELECT_ALL_OF_CUSTOMERS');?>">loading...</div>
 <div id="dialog-contacts-add" class="hide" title="<?php echo L('ADD_A_CONTACT');?>">loading...</div>
 <div class="hide" id="dialog-validate" title="<?php echo L('CUSTOMER_NAME_TEST_RESULTS');?>">

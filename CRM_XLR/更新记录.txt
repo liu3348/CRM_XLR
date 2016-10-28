@@ -1,1 +1,2 @@
 UPDATE xlr_customer SET CustomerType = 'Ç©µ¥¿Í»§' WHERE creator_role_id  = 1
+
