@@ -1,0 +1,1 @@
+<?php	return array ( 'name' => 'CRM', 'description' => '鑫灵锐CRM', 'state' => '湖北省', 'city' => '武汉市', 'allow_file_type' => 'pdf,doc,jpg,jpeg,png,gif,txt,doc,xls,xlsx,zip,docx', 'contract_alert_time' => 30, 'task_model' => '2', 'logo' => NULL, );?>

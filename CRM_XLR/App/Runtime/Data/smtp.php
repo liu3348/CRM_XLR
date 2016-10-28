@@ -1,0 +1,1 @@
+<?php	return array ( 'MAIL_ADDRESS' => 'liu3348@163.com', 'MAIL_SMTP' => 'smtp.163.com', 'MAIL_PORT' => '25', 'MAIL_LOGINNAME' => 'liu3348', 'MAIL_PASSWORD' => 'liuliu33487711', 'MAIL_SECURE' => NULL, 'MAIL_CHARSET' => 'UTF-8', 'MAIL_AUTH' => true, 'MAIL_HTML' => true, );?>

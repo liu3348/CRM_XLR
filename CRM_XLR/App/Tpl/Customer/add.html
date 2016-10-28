@@ -6,137 +6,133 @@
 <script type="text/javascript" src="__PUBLIC__/js/formValidatorRegex.js" charset="UTF-8"></script>
 <link rel="stylesheet" href="__PUBLIC__/css/kindeditor.css" type="text/css" />
 
-
-
-<!--change start-->
-
 <div class="container">
-    <div class="page-header">
-        <h4>{:L('ADD_THE_CUSTOMER')}</h4>
-    </div>
-    <div class="row">
-        <div class="span12">
-            <include file="Public:alert" />
-            <form id="form1" action="{:U(customer/add)}" method="post">
-                <input type="hidden" name="refer_url" value="{$refer_url}">
-                <div class="form12-item-12 clearfix">
-                    <div class="form12-item" style="font-weight: bold;padding: 5px;">
-                        {:L('KEY_MESSAGE')}
-                    </div>
-                </div>
-                <div class="form12-item-main">
-                    <div class="form12-item-12 clearfix ">
-                        <div class="form12-item-6">
-                            <label style="display: inline-block">{:L('PRINCIPAL')}:</label>
-                            <input type="hidden" id="owner_id" name="owner_role_id" value="{$Think.session.role_id}"/>
-                            <input type="text" id="owner_name" value="{$Think.session.name}" /> &nbsp;&nbsp;
-                            <input class="btn btn-mini" id="remove"  type="button" value="{:L(IN_THE_CUSTOMER_POOL)}"/>
-                        </div>
+	<!-- Docs nav ================================================== -->
+	<div class="page-header">
+		<h4>{:L('ADD_THE_CUSTOMER')}</h4>
+	</div>
+	<div class="row">
+		<div class="span12">
+			<include file="Public:alert" />
+			<form id="form1" action="{:U(customer/add)}" method="post">
+			     <input type="hidden" name="refer_url" value="{$refer_url}">
+                <table class="table" width="95%" border="0" cellspacing="1" cellpadding="0">
+					<tbody>
+						<tr><th colspan="4">{:L('KEY_MESSAGE')}</th></tr>
+                        <tr>
+                            <td class="tdleft" width="15%">{:L('PRINCIPAL')}:</td>
+                            <td>
+                                <input type="hidden" id="owner_id" name="owner_role_id" value="{$Think.session.role_id}"/>
+                                <input type="text" id="owner_name" value="{$Think.session.name}" /> &nbsp;&nbsp;
+                                <input class="btn btn-mini" id="remove"  type="button" value="{:L(IN_THE_CUSTOMER_POOL)}"/>
+                            </td>
                         <php>$j=0;</php>
-                        <volist name="field_list['main']" id="vo">
-                            <php>if($vo['in_add']){
-                                $j++;
-                            </php>
-                            <if condition="$vo['form_type'] == 'textarea' or $vo['form_type'] == 'editor' or $vo['form_type'] == 'address'">
-                                <if condition="$i%2 != 0">
-                                    <div class="form12-item-6">&nbsp;</div>
-                    </div>
-                    </if>
-                    <div class="form12-item-12 clearfix ">
-                        <label >{$vo.name}:</label>{$vo.html}
-                    </div>
-                    <if condition="$i%2 == 0 && count($field_list['main']) != $j">
-                        <php>$i++;</php>
-                    </if>
-                    <else/>
-                    <if condition="$i%2 == 0">
-                        <div class="form12-item-12 clearfix">
-                    </if>
-                    <div class="form12-item-6 ">
-                        <label>{$vo.name}:</label>
-                        {$vo.html}
-                    </div>
-                    <if condition="$i%2 != 0">
-                </div>
-                </if>
-                <if condition="$i%2 == 0 && count($field_list['main']) == $j">
-                    <div class="form12-item-6">&nbsp;</div>
-        </div>
-        </if>
-        </if>
-        <php>}</php>
-        </volist>
-                </div>
-
-                <!--info-->
-                <div class="form12-item-12 clearfix">
-                    <div class="form12-item" style="font-weight: bold;padding: 5px;">
-                        {:L('THE_PRIMARY_CONTACT_INFORMATION')}
-                    </div>
-                </div>
-                <div class="form12-item-12 clearfix form12-item-info">
-                    <div class="form12-item-6">
-                        <label>{:L('NAME')}:</label>
-                        <input class="user_input" type="text" name="con_name" value="{$leads['contacts_name']}">
-                    </div>
-                    <div class="form12-item-6">
-                        <label>{:L('NAMED')}:</label>
-                        <input class="user_input" type="text" name="saltname" value="{$leads['saltname']}">
-                    </div>
-                    <div class="form12-item-6">
-                        <label>{:L('MAILBOX')}:</label>
-                        <input class="user_input" name="con_email" type="text"  value="{$leads['email']}"/>
-                    </div>
-                    <div class="form12-item-6">
-                        <label>{:L('POSITION')}:</label>
-                        <input class="user_input"  value="{$leads['position']}" type="text" name="con_post"/>
-                    </div>
-                    <div class="form12-item-6">
-                        <label>QQ:</label>
-                        <input class="user_input" name="con_qq" data-type="nummber"  type="text" value="{$leads['qqnumber']}" />
-                    </div>
-                    <div class="form12-item-6">
-                        <label>{:L('CELLPHONE')}:</label>
-                        <input class="user_input" name="con_telephone" data-type="nummber"  value="{$leads['mobile']}" type="text" />
-                    </div>
-                    <div class="form12-item-12">
-                        <label>{:L('REMARK')}:</label>
-                        <textarea class="span8" rows="3" name="con_description" ></textarea>
-                    </div>
-                </div>
-                <!--addinfo-->
-                <div class="form12-item-12 clearfix">
-                    <div class="form12-item" style="font-weight: bold;padding: 5px;">
-                        {:L('KEY_MESSAGE')}
-                    </div>
-                </div>
-                <div class="form12-item-12 clearfix form12-item-data">
-                <volist name="field_list['data']" id="vo">
-                    <div class="form12-item-12 ">
-                        <label>{$vo.name}:</label>
-                        {$vo.html}
-                    </div>
-                </volist>
-                    </div>
-                <div class="form12-item-12 clearfix form12-item-button" >
-                    <input class="btn btn-primary" name="submit" type="submit" value="{:L('SAVE')}"/>&nbsp;&nbsp;
-                    <input class="btn btn-primary" name="submit" type="submit" value="{:L('SAVE_AND_NEW')}"/>&nbsp;&nbsp;
-                    <input class="btn" type="button" onclick="javascript:history.go(-1)" value="{:L('RETURN')}"/>&nbsp;
-                    <input type="checkbox" name="create_business1" value="1"/>{:L('AT_THE_SAME_TIME_CREATING_BUSINESS_OPPORTUNITIES')}
-                </div>
+						<volist name="field_list['main']" id="vo">
+                        <php>if($vo['in_add']) { $j++;</php>
+                        <if condition="$vo['form_type'] == 'textarea' or $vo['form_type'] == 'editor' or $vo['form_type'] == 'address'">
+                            <if condition="$i%2 != 0">
+                            <td colspan="2">&nbsp;</td>
+                            </tr>
+                            </if>
+                            <tr>
+                                <td class="tdleft" width="15%">{$vo.name}:</td>
+                                <td colspan="3">{$vo.html}</td>
+                            </tr>
+                            <if condition="$i%2 == 0 && count($field_list['main']) != $j">
+                            <php>$i++;</php>
+                            </if>
+                        <else/>
+                            <if condition="$i%2 == 0">
+                            <tr>
+                            </if>
+                                <td class="tdleft" width="15%">{$vo.name}:</td>
+                                <td width="35%">{$vo.html}</td>
+                            <if condition="$i%2 != 0">
+                            </tr>
+                            </if>
+                            <if condition="$i%2 == 0 && count($field_list['main']) == $j">
+                                <td colspan="2">&nbsp;</td>
+                                </tr>
+                            </if>
+                        </if>
+						<php>}</php>
+						</volist>
+						<tr>
+							<th colspan="4">{:L('THE_PRIMARY_CONTACT_INFORMATION')}</th>
+                        </tr>
+                        <tr>
+                            <td class="tdleft" >{:L('NAME')}</td>
+                            <td><input class="user_input" type="text" name="con_name" value="{$leads['contacts_name']}"></td>
+                            <td class="tdleft" >{:L('NAMED')}</td>
+                            <td><input class="user_input" type="text" name="saltname" value="{$leads['saltname']}"></td>
+                        </tr>
+                        <tr>
+                            <td class="tdleft" >{:L('MAILBOX')}</td>
+                            <td><input class="user_input" name="con_email" type="text"  value="{$leads['email']}"/></td>
+                            <td class="tdleft" >{:L('POSITION')}</td>
+                            <td>
+                                <input class="user_input"  value="{$leads['position']}" type="text" name="con_post"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tdleft">QQ</td>
+                            <td><input class="user_input" name="con_qq" data-type="nummber"  type="text" value="{$leads['qqnumber']}" /></td>
+                            <td class="tdleft" >{:L('CELLPHONE')}</td>
+                            <td><input class="user_input" name="con_telephone" data-type="nummber"  value="{$leads['mobile']}" type="text" /></td>
+                        </tr>
+						<tr>
+                            <td class="tdleft" >{:L('REMARK')}</td>
+                            <td colspan="3"><textarea class="span8" rows="3" name="con_description" ></textarea></td>
+                        </tr>
+						<tr><th  colspan="4">{:L('OVERHEAD_INFORMATION')}</th></tr>
+						<php>$j=0;</php>
+						<volist name="field_list['data']" id="vo">
+                        <php>if($vo['in_add']){ $j++;</php>
+                        <if condition="$vo['form_type'] == 'textarea' or $vo['form_type'] == 'editor'  or $vo['form_type'] == 'address'">
+                            <if condition="$i%2 == 0">
+                            <td colspan="2">&nbsp;</td>
+                            </tr>
+                            </if>
+                            <tr>
+                                <td class="tdleft" width="15%">{$vo.name}:</td>
+                                <td colspan="3">{$vo.html}</td>
+                            </tr>
+                            <if condition="$i%2 != 0 && count($field_list['data']) != $j">
+                            <php>$i++;</php>
+                            </if>
+                        <else/>
+                            <if condition="$i%2 != 0">
+                            <tr>
+                            </if>
+                                <td class="tdleft" width="15%">{$vo.name}:</td>
+                                <td width="35%">{$vo.html}</td>
+                            <if condition="$i%2 == 0">
+                            </tr>
+                            </if>
+                            <if condition="$i%2 != 0 && count($field_list['data']) == $j">
+                                <td colspan="2">&nbsp;</td>
+                                </tr>
+                            </if>
+                        </if>
+						<php>}</php>
+						</volist>
+					</tbody>
+					<tfoot>
+						<tr>
+							<td style="text-align:center;" colspan="4">
+                                <input class="btn btn-primary" name="submit" type="submit" value="{:L('SAVE')}"/>&nbsp;&nbsp;
+                                <input class="btn btn-primary" name="submit" type="submit" value="{:L('SAVE_AND_NEW')}"/>&nbsp;&nbsp;
+                                <input class="btn" type="button" onclick="javascript:history.go(-1)" value="{:L('RETURN')}"/>&nbsp;
+                                <input type="checkbox" name="create_business1" value="1"/>{:L('AT_THE_SAME_TIME_CREATING_BUSINESS_OPPORTUNITIES')}
+							</td>
+						</tr>
+					</tfoot>
+                </table>
                 <if condition="$leads['leads_id']"><input type="hidden" name="leads_id" value="{$leads['leads_id']}"/></if>
-            </form>
-        </div>
-    </div>
+			</form>
+		</div>
+	</div>
 </div>
-
-
-
-
-<!--change end-->
-
-
-
 <div id="dialog-role-list" class="hide" title="{:L('SELECT_ALL_OF_CUSTOMERS')}">loading...</div>
 <div id="dialog-contacts-add" class="hide" title="{:L('ADD_A_CONTACT')}">loading...</div>
 <div class="hide" id="dialog-validate" title="{:L('CUSTOMER_NAME_TEST_RESULTS')}">

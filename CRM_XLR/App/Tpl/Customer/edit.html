@@ -5,7 +5,6 @@
 <script type="text/javascript" src="__PUBLIC__/js/formValidator-4.0.1.min.js" charset="UTF-8"></script>
 <script type="text/javascript" src="__PUBLIC__/js/formValidatorRegex.js" charset="UTF-8"></script>
 <link rel="stylesheet" href="__PUBLIC__/css/kindeditor.css" type="text/css" />
-<link rel="stylesheet" href="__PUBLIC__/css/change/change_edit.css" type="text/css" />
 	<div class="container">
 		<div class="page-header">
 			<h4>{:L('EDIT_THE_CUSTOMER')}</h4>
@@ -13,93 +12,93 @@
 		<div class="row">
 			<div class="span12">
 				<include file="Public:alert" />
-				<form action="{:U('customer/edit', 'id='.$customer['customer_id'])}" method="post" id="form1" style="padding-bottom: 15px;" >
+				<form action="{:U('customer/edit', 'id='.$customer['customer_id'])}" method="post" id="form1" >
                 <input type="hidden" name="customer_id" value="{$customer['customer_id']}">
-                        <div class="col-12">{:L('BASIC_INFORMATION')}</div>
-                    <div class="col-12-item">
-                        <div class="col-6 col-6-1"><label>{:L('PRINCIPAL')}</label>
-                            <input type="hidden" id="owner_id" name="owner_role_id" value="{$customer.owner_role_id}"/>
-                            <input type="text" id="owner_name" value="{$customer.owner.user_name}" /><div class="hide-xs"> &nbsp;&nbsp;</div>
-                            <input class="btn btn-mini" id="remove"  type="button" value="{:L('IN_THE_CUSTOMER_POOL')}"/>
-                        </div>
-                        <div class="col-6"><label>{:L('THE_PRIMARY_CONTACT')}</label>
-                            <input type="hidden" id="contacts_id" name="contacts_id" value="{$customer.contacts_id}"/>
-                            <input type="text" id="contacts_name" value="{$customer.contacts_name}" />
-                        </div>
-                    </div>
-                    <php>$j=0;</php>
-                    <volist name="field_list['main']" id="vo">
-                        <php>$j++;</php>
-                        <if condition="$vo['form_type'] == 'textarea' or $vo['form_type'] == 'editor' or $vo['form_type'] == 'address'">
-                            <if condition="$i%2 == 0">
-                                <div class="col-6">&nbsp;</div></div>
+					<table class="table table-hover" width="95%" border="0" cellspacing="1" cellpadding="0">
+						<tfoot>
+							<tr>
+								<td style="text-align:center;" colspan="4" ><input class="btn btn-primary" name="submit" type="submit" value="{:L('save')}"/>  &nbsp;<input class="btn" type="button" onclick="location.href='{:U('customer/index')}'" value="{:L('return')}"/></td>
+							</tr>
+						</tfoot>
+						<tbody>
+							<tr><th colspan="4">{:L('BASIC_INFORMATION')}</th></tr>
+                            <tr>
+                                <td class="tdleft" width="15%">{:L('PRINCIPAL')}</td>
+                                <td>
+                                    <input type="hidden" id="owner_id" name="owner_role_id" value="{$customer.owner_role_id}"/>
+                                    <input type="text" id="owner_name" value="{$customer.owner.user_name}" /> &nbsp;&nbsp;
+                                    <input class="btn btn-mini" id="remove"  type="button" value="{:L('IN_THE_CUSTOMER_POOL')}"/>
+                                </td>
+                                <td class="tdleft" width="15%">{:L('THE_PRIMARY_CONTACT')}</td>
+                                <td>
+                                    <input type="hidden" id="contacts_id" name="contacts_id" value="{$customer.contacts_id}"/>
+                                    <input type="text" id="contacts_name" value="{$customer.contacts_name}" />
+                                </td>
+                            </tr>
+							<php>$j=0;</php>
+                            <volist name="field_list['main']" id="vo">
+                            <php>$j++;</php>
+                            <if condition="$vo['form_type'] == 'textarea' or $vo['form_type'] == 'editor' or $vo['form_type'] == 'address'">
+                                <if condition="$i%2 == 0">
+                                <td colspan="2">&nbsp;</td>
                                 </tr>
-                            </if>
-                            <div class="col-12">
-                                <label>{$vo.name}:</label>
-                                {$vo.html}
-                            </div>
-
-                            <if condition="$i%2 != 0 && count($field_list['main']) != $j">
+                                </if>
+                                <tr>
+                                    <td class="tdleft" width="15%">{$vo.name}:</td>
+                                    <td colspan="3">{$vo.html}</td>
+                                </tr>
+                                <if condition="$i%2 != 0 && count($field_list['main']) != $j">
                                 <php>$i++;</php>
-                            </if>
+                                </if>
                             <else/>
-                            <if condition="$i%2 != 0">
-                                <div class="col-12-item">
+                                <if condition="$i%2 != 0">
+                                <tr>
+                                </if>
+                                    <td class="tdleft" width="15%">{$vo.name}:</td>
+                                    <td width="35%">{$vo.html}</td>
+                                <if condition="$i%2 == 0">
+                                </tr>
+                                </if>
+                                <if condition="$i%2 != 0 && count($field_list['main']) == $j">
+                                    <td colspan="2">&nbsp;</td>
+                                    </tr>
+                                </if>
                             </if>
-                            <div class="col-6">
-                                <label>{$vo.name}:</label>
-                                {$vo.html}
-                            </div>
-
-                            <if condition="$i%2 == 0">
-                                </div>
-                            </if>
-                            <if condition="$i%2 != 0 && count($field_list['main']) == $j">
-                                <div class="col-6">&nbsp;</div>
-                                </div>
-                            </if>
-                            </if>
-                     </volist>
-                    <div class="col-12">{:L('OVERHEAD_INFORMATION')}</div>
-                    <php>$j=0;</php>
-                    <volist name="field_list['data']" id="vo">
-                        <php>$j++;</php>
-                        <if condition="$vo['form_type'] == 'textarea' or $vo['form_type'] == 'editor' or $vo['form_type'] == 'address'">
-                            <if condition="$i%2 == 0">
-                                <div class="col-6">&nbsp;</div>
-                                </div>
-                            </if>
-                            <div class="col-12-item col-12-info">
-                                <label>{$vo.name}:</label>
-                                {$vo.html}
-                            </div>
-                            <if condition="$i%2 != 0 && count($field_list['data']) != $j">
+                            </volist>
+							<tr><th  colspan="4">{:L('OVERHEAD_INFORMATION')}</th></tr>
+							<php>$j=0;</php>
+                            <volist name="field_list['data']" id="vo">
+                            <php>$j++;</php>
+                            <if condition="$vo['form_type'] == 'textarea' or $vo['form_type'] == 'editor' or $vo['form_type'] == 'address'">
+                                <if condition="$i%2 == 0">
+                                <td colspan="2">&nbsp;</td>
+                                </tr>
+                                </if>
+                                <tr>
+                                    <td class="tdleft" width="15%">{$vo.name}:</td>
+                                    <td colspan="3">{$vo.html}</td>
+                                </tr>
+                                <if condition="$i%2 != 0 && count($field_list['data']) != $j">
                                 <php>$i++;</php>
-                            </if>
+                                </if>
                             <else/>
-                            <if condition="$i%2 != 0">
-                                <div class="col-12-item col-12-info">
+                                <if condition="$i%2 != 0">
+                                <tr>
+                                </if>
+                                    <td class="tdleft" width="15%">{$vo.name}:</td>
+                                    <td width="35%">{$vo.html}</td>
+                                <if condition="$i%2 == 0">
+                                </tr>
+                                </if>
+                                <if condition="$i%2 != 0 && count($field_list['data']) == $j">
+                                    <td colspan="2">&nbsp;</td>
+                                    </tr>
+                                </if>
                             </if>
-                            <div class="col-6">
-                                <label>{$vo.name}:</label>
-                                {$vo.html}
-                            </div>
-                            <if condition="$i%2 == 0">
-                                </div>
-                            </if>
-                            <if condition="$i%2 != 0 && count($field_list['data']) == $j">
-                                <div class="col-6">&nbsp;</div>
-                                </div>
-                            </if>
-                        </if>
-                    </volist>
-                    <div class="col-button" style="margin-top: 10px;text-align: center;border-bottom: 0;"><input class="btn btn-primary" name="submit" type="submit" value="{:L('save')}"/>  &nbsp;<input class="btn" type="button" onclick="location.href='{:U('customer/index')}'" value="{:L('return')}"/>
-                    </div>
-
+                            </volist>
+						</tbody>
+					</table>
 				</form>
-
-
 			</div>
 		</div>
 	</div>
